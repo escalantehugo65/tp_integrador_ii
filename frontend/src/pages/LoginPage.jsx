@@ -1,10 +1,18 @@
+import useForm from "../hooks/useForm.js";
+
 function LoginPage (){
+    const {form, handleInputChange} = useForm({email:"", password:""})
+    const handleSubmit = (event)=>{
+        event.preventDefault()
+    }
     return (
         <div className="max-w-md mx-auto p-6 border border-gray-400 rounded-md shadow-md mt-10">
             <h1>Login</h1>
-            <form className="flex flex-col gap-4">
+            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <label htmlFor="email" className="p-2">Email</label>
                 <input 
+                value={form.email}
+                onChange={handleInputChange}
                 className="border border-gray-400 rounded-md p-2"
                 id="email"
                 type="email"
@@ -12,8 +20,11 @@ function LoginPage (){
                 placeholder="Ingrese su correo"
                 required
                 />
-                <label htmlFor="contraseña" className="p-2">Contraseña</label>
+                <label htmlFor="contraseña" 
+                className="p-2">Contraseña</label>
                 <input type="password"
+                value={form.password}
+                onChange={handleInputChange}
                 className="border border-gray-400 rounded-md p-2"
                 id="contraseña"
                 name="password"
