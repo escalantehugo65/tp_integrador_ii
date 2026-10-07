@@ -4,7 +4,6 @@ import Article from "./article.model.js";
 import Tag from "./tag.model.js";
 import ArticleTag from "./articleTag.model.js";
 
-// Primero se definen todos los modelos; despues se conectan sus relaciones.
 User.hasOne(Profile, { foreignKey: "user_id", as: "profile", onDelete: "CASCADE" });
 Profile.belongsTo(User, { foreignKey: "user_id", as: "user", onDelete: "CASCADE" });
 
