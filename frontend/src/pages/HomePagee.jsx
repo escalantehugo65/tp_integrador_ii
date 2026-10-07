@@ -17,13 +17,15 @@ function HomePage() {
         <p>No hay artículos publicados.</p>
       )}
 
-      {!loading && !error && data?.map((article) => (
-        <article key={article.id}>
-          <h2>{article.title}</h2>
-          <p>{article.excerpt}</p>
-          <p>Autor: {article.author?.username}</p>
-        </article>
-      ))}
+      {!loading &&
+        !error &&
+        data?.map((article) => (
+          <article key={article.id}>
+            <h2>{article.title}</h2>
+            <p>{article.excerpt}</p>
+            <p>Autor: {article.author?.username}</p>
+          </article>
+        ))}
     </div>
   );
 }
