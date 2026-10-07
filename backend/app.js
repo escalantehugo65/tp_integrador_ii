@@ -3,12 +3,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import sequelize from './src/config/db.js';
+import './src/models/index.js';
 
-import './src/models/user.model.js';
-import './src/models/profile.model.js';
-import './src/models/article.model.js';
-import './src/models/tag.model.js';
-import './src/models/articleTag.model.js';
 
 import authRoutes from './src/routes/auth.routes.js';
 import tagRoutes from './src/routes/tag.routes.js';

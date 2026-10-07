@@ -1,7 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
-import Profile from "./profile.model.js";
-import Article from "./article.model.js";
 
 const User = sequelize.define("User", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -18,7 +16,5 @@ const User = sequelize.define("User", {
     deletedAt: "deleted_at"
 });
 
-User.hasOne(Profile, { foreignKey: "user_id", as: "profile" });
-User.hasMany(Article, { foreignKey: "user_id", as: "articles" });
 
 export default User;

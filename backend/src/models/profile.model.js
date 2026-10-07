@@ -16,6 +16,5 @@ const Profile = sequelize.define("Profile", {
     updatedAt: "updated_at"
 });
 
-//Profile.belongsTo(User, { foreignKey: "user_id", as: "user" });
 
 export default Profile;
