@@ -5,7 +5,7 @@ import {
   Navigate,
 } from "react-router";
 
-import HomePage from "../pages/HomePage";
+import HomePage from "../pages/HomePagee";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import PrivateRoutes from "./PrivateRoutes";
