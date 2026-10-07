@@ -5,6 +5,8 @@ function RegisterPage (){
     const handleSubmit = (event)=>{
         event.preventDefault()
     }
+
+    
     return (
         <div className="max-w-md mx-auto p-6 border border-gray-400 rounded-md shadow-md mt-10">
             <h1>Crear Cuenta</h1>

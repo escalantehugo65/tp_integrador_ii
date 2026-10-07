@@ -1,3 +1,4 @@
+import useFetch from "../hooks/useFetch.js";
 import useForm from "../hooks/useForm.js";
 
 function LoginPage (){
@@ -5,6 +6,8 @@ function LoginPage (){
     const handleSubmit = (event)=>{
         event.preventDefault()
     }
+
+    const {} = useFetch(url, "PUT")
     return (
         <div className="max-w-md mx-auto p-6 border border-gray-400 rounded-md shadow-md mt-10">
             <h1>Login</h1>
