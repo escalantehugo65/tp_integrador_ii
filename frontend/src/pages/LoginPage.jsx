@@ -1,42 +1,97 @@
-import useFetch from "../hooks/useFetch.js";
-import useForm from "../hooks/useForm.js";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import useForm from "../hooks/useForm";
 
-function LoginPage (){
-    const {form, handleInputChange} = useForm({email:"", password:""})
-    const handleSubmit = (event)=>{
-        event.preventDefault()
+function LoginPage() {
+  const navigate = useNavigate();
+  const { form, handleInputChange } = useForm({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const respuesta = await fetch(
+        "http://localhost:3000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(form),
+        }
+      );
+
+      const datos = await respuesta.json();
+
+      if (!respuesta.ok) {
+        throw new Error(datos.message || "No se pudo iniciar sesión");
+      }
+
+      localStorage.setItem("isLogged", "true");
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    const {} = useFetch(url, "PUT")
-    return (
-        <div className="max-w-md mx-auto p-6 border border-gray-400 rounded-md shadow-md mt-10">
-            <h1>Login</h1>
-            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                <label htmlFor="email" className="p-2">Email</label>
-                <input 
-                value={form.email}
-                onChange={handleInputChange}
-                className="border border-gray-400 rounded-md p-2"
-                id="email"
-                type="email"
-                name="email" 
-                placeholder="Ingrese su correo"
-                required
-                />
-                <label htmlFor="contraseña" 
-                className="p-2">Contraseña</label>
-                <input type="password"
-                value={form.password}
-                onChange={handleInputChange}
-                className="border border-gray-400 rounded-md p-2"
-                id="contraseña"
-                name="password"
-                placeholder="Ingrese su contraseña"
-                required />
-                <button type="submit" className="bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700">Iniciar Sesión</button>
-            </form>
-        </div>
-    );
-};
+  return (
+    <div className="mx-auto mt-10 max-w-md rounded-md border p-6 shadow-md">
+      <h1 className="mb-4 text-2xl font-bold">Iniciar sesión</h1>
 
-export default LoginPage
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4"
+      >
+        <input
+          type="email"
+          name="email"
+          value={form.email}
+          onChange={handleInputChange}
+          placeholder="Correo electrónico"
+          required
+          className="rounded border p-2"
+        />
+
+        <input
+          type="password"
+          name="password"
+          value={form.password}
+          onChange={handleInputChange}
+          placeholder="Contraseña"
+          required
+          className="rounded border p-2"
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="rounded bg-blue-600 px-4 py-2 text-white"
+        >
+          {loading ? "Ingresando..." : "Iniciar sesión"}
+        </button>
+
+        {error && <p className="text-red-600">{error}</p>}
+      </form>
+
+      <p className="mt-4">
+        ¿No tenés una cuenta?{" "}
+        <Link to="/register" className="text-blue-600">
+          Registrate
+        </Link>
+      </p>
+    </div>
+  );
+}
+
+export default LoginPage;

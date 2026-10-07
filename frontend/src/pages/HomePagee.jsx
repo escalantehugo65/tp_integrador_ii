@@ -1,4 +1,5 @@
 import useFetch from "../hooks/useFetch";
+import Navbar from "../components/navbar";
 
 function HomePage() {
   const { data, loading, error } = useFetch(
@@ -7,6 +8,8 @@ function HomePage() {
 
   return (
     <div>
+      <Navbar/>
+      
       <h1>Artículos de Blog</h1>
 
       {loading && <p>Cargando artículos...</p>}
